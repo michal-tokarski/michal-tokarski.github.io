@@ -1,19 +1,9 @@
 $(document).ready(function() {
 
-  // --- previous version ---
-  /*
-  const apiRoot = 'http://localhost:8080/v1/task/';
-  // const apiRoot = 'https://mysterious-headland-08444.herokuapp.com/v1/task/';
-  const trelloApiRoot = 'http://localhost:8080/v1/trello/';
-  const datatableRowTemplate = $('[data-datatable-row-template]').children()[0];
-  const $tasksContainer = $('[data-tasks-container]');
-  */
 
-  // --- endpoint refactoring ---
-  // const apiRoot = 'http://localhost:8080/v1/';	// --- for local ---
-  const apiRoot = 'https://mysterious-headland-08444.herokuapp.com/v1/'; // --- for remote ---
-  // const trelloApiRoot = 'http://localhost:8080/v1/trello/'; // --- for local ---
-  const trelloApiRoot = 'https://mysterious-headland-08444.herokuapp.com/v1/trello/'; // --- for remote ---
+  // const apiRoot = 'http://localhost:8080/v1/task/';
+  const apiRoot = 'https://mysterious-headland-08444.herokuapp.com/v1/task/';
+  const trelloApiRoot = 'https://mysterious-headland-08444.herokuapp.com/v1/trello/';
   const datatableRowTemplate = $('[data-datatable-row-template]').children()[0];
   const $tasksContainer = $('[data-tasks-container]');
 
@@ -25,10 +15,7 @@ $(document).ready(function() {
   getAllTasks();
 
   function getAllAvailableBoards(callback, callbackArgs) {
-  	// --- previous version ---
-    // var requestUrl = trelloApiRoot + 'getTrelloBoards';
-    // --- endpoint refactoring ---
-	var requestUrl = trelloApiRoot + 'boards';
+    var requestUrl = trelloApiRoot + 'getTrelloBoards';
 
     $.ajax({
       url: requestUrl,
@@ -79,10 +66,7 @@ $(document).ready(function() {
   }
 
   function getAllTasks() {
-  	// --- previous version ---
-    // const requestUrl = apiRoot + 'getTasks';
-	// --- endpoint refactoring ---
-	const requestUrl = apiRoot + 'tasks';
+    const requestUrl = apiRoot + 'getTasks';
 
     $.ajax({
       url: requestUrl,
@@ -103,10 +87,7 @@ $(document).ready(function() {
     var taskId = parentEl.attr('data-task-id');
     var taskTitle = parentEl.find('[data-task-name-input]').val();
     var taskContent = parentEl.find('[data-task-content-input]').val();
-    // --- previous version ---
-    // var requestUrl = apiRoot + 'updateTask';
-    // --- endpoint refactoring ---
-    var requestUrl = apiRoot + 'tasks';
+    var requestUrl = apiRoot + 'updateTask';
 
     $.ajax({
       url: requestUrl,
@@ -128,31 +109,14 @@ $(document).ready(function() {
   }
 
   function handleTaskDeleteRequest() {
-    
-    // --- previous version ---
-    /*
     var parentEl = $(this).parents('[data-task-id]');
     var taskId = parentEl.attr('data-task-id');
     var requestUrl = apiRoot + 'deleteTask';
-    
+
     $.ajax({
       url: requestUrl + '/?' + $.param({
         taskId: taskId
       }),
-      method: 'DELETE',
-      success: function() {
-        parentEl.slideUp(400, function() { parentEl.remove(); });
-      }
-    })
-    */
-
-    // --- endpoint refactoring ---
-    var parentEl = $(this).parents('[data-task-id]');
-    var taskId = parentEl.attr('data-task-id');
-	var requestUrl = apiRoot + 'tasks';
-
-    $.ajax({
-      url: requestUrl + '/' + taskId,
       method: 'DELETE',
       success: function() {
         parentEl.slideUp(400, function() { parentEl.remove(); });
@@ -166,11 +130,7 @@ $(document).ready(function() {
     var taskTitle = $(this).find('[name="title"]').val();
     var taskContent = $(this).find('[name="content"]').val();
 
-	// --- previous version ---
-    // var requestUrl = apiRoot + 'createTask';
-	// --- endpoint refactoring ---
-	var requestUrl = apiRoot + 'tasks';
-
+    var requestUrl = apiRoot + 'createTask';
 
     $.ajax({
       url: requestUrl,
@@ -211,11 +171,7 @@ $(document).ready(function() {
   }
 
   function handleCardCreationRequest(event) {
-  	// --- previous version ---
-    // var requestUrl = trelloApiRoot + 'createTrelloCard';
-	// --- endpoint refactoring ---
-	var requestUrl = trelloApiRoot + 'cards';
-
+    var requestUrl = trelloApiRoot + 'createTrelloCard';
     var $relatedTaskRow = $(event.target).parents('[data-task-id]');
     var relatedTaskId = $relatedTaskRow.attr('data-task-id');
     var relatedTask = availableTasks[relatedTaskId];
